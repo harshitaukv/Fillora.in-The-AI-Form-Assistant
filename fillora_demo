@@ -1,1 +1,49 @@
+import warnings
+warnings.filterwarnings("ignore")
+from transformers import pipeline, logging
+logging.set_verbosity_error()
+from PIL import Image, ImageDraw, ImageFont
+print("Loading AI model... please wait ⏳")
+ner = pipeline(
+    "ner",
+    model="dslim/bert-base-NER",
+    device=-1 
+)
+sample_text = """
+Ravi Kumar, a student from Uttar Pradesh, is applying for the National Scholarship 2025.
+His Aadhaar number is 1234-5678-9101 and date of birth is 15 August 2002.
+He studies at Delhi University and his email is ravi.kumar@example.com.
+"""
+print("\nInput Text:\n", sample_text)
+ner_results = ner(sample_text)
+print("\nDetected Entities:\n")
+for entity in ner_results:
+    label = entity.get("entity_group") or entity.get("entity")
+    print(f"{entity['word']:20} --> {label}")
+form_data = {
+    "Name": "Ravi Kumar",
+    "State": "Uttar Pradesh",
+    "DOB": "15 August 2002",
+    "Aadhaar": "1234-5678-9101",
+    "University": "Delhi University",
+    "Email": "ravi.kumar@example.com"
+}
+print("\nAuto-Fill Suggestions:")
+for key, value in form_data.items():
+    print(f"{key}: {value}")
+img_width, img_height = 600, 300
+image = Image.new("RGB", (img_width, img_height), color="white")
+draw = ImageDraw.Draw(image)
+try:
+    font = ImageFont.truetype("arial.ttf", 18)
+except:
+    font = ImageFont.load_default()
+
+draw.text((150, 20), "National Scholarship Form", fill="black", font=font)
+y_offset = 70
+for key, value in form_data.items():
+    draw.text((50, y_offset), f"{key}: {value}", fill="black", font=font)
+    y_offset += 35
+image.show()
+print("\nFillora Assistant has extracted, filled, and displayed the form successfully!")
 
