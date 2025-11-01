@@ -1,1 +1,46 @@
+ Fillora.in – The AI System Architecture Description
 
+The architecture is divided into three main stages: the Input Layer, the central Processing Layer(the AI Core), and the Output Layer.
+
+1. Input Layer
+This layer handles all user interactions and data ingestion, focusing on inclusivity and flexibility.
+
+* User Document/Image Upload:** The primary entry point for the form data, accepting scanned documents, images (like ID proofs), and PDFs.
+* Voice/Text Chat:** Allows users to communicate with the assistant in a conversational manner, either to clarify form intent or provide data directly.
+* Native Language Selector:** A crucial component reflecting the "Empathy by Design" philosophy, ensuring the user can interact with the system in their preferred language (e.g., Hindi, Tamil, Bengali).
+
+2. Processing Layer (The AI Core)
+This is the heart of Fillora.in, where the raw input is transformed into structured, validated data suitable for form filling. The modules operate interactively and in parallel.
+
+a. Computer Vision Module (OCR + LayoutLM / Donut)
+* Function: Extracts text and understands the visual structure (layout) of the uploaded documents.
+* Technologies: Uses Optical Character Recognition (OCR) to digitize text and models like LayoutLM or Donut to understand that a block of text belongs to a specific field label (e.g., distinguishing a name field from an address field in a messy form).
+
+b. NLP Intent & Entity Recognition (BERT-based / IndicBERT)
+* Function: Matches the text extracted from the user's documents to the specific data fields required by the form.
+* Technologies: Uses advanced NLP models (like **BERT-based** architectures or the Indian-language optimized **IndicBERT**) to identify entities (Name, DOB, Address) and understand the intent (e.g., "This is a scholarship form"). This links user data to form labels.
+
+c. Multilingual Support (IndicNLP + Translation APIs)
+* Function: Acts as a central translator, ensuring seamless communication between the user's native language input and the often-English form labels.
+* Technologies: Utilizes open-source Indian NLP libraries like IndicNLP and commercial Translation APIs to maintain accurate context across languages.
+
+d. Validation Engine
+* Function: Ensures the extracted data is structurally correct before insertion.
+* Checks: Performs essential cross-checks, such as verifying date formats or ensuring specific numbers (like Aadhaar structure) adhere to required patterns, significantly reducing submission errors.
+
+e. Empathetic Dialogue Engine (LLM-based)
+* Function: Drives the conversational flow, particularly when clarification is needed (e.g., "I see two addresses, which one is residential?") and maintains an empathetic, supportive tone.
+* Technologies: Powered by a Large Language Model (LLM) fine-tuned for conversational guidance and emotional tone modulation.
+
+3. Output Layer
+The final delivery stage, where the processed data is presented to the user securely.
+
+* Prefilled Form:The core output—the target form is automatically filled.
+* Highlighted Fields:** Critical for transparency, uncertain or validated fields (like a potentially incorrect phone number) are highlighted for mandatory user review.
+* Voice/Text Assistant for Review:** The dialogue engine continues here, providing real-time feedback and assistance during the final review phase.
+* Privacy-Protected Submission:** Offers the final actions: either downloading the filled form or securely submitting it online, with clear assurance that data handling prioritizes privacy and security.
+
+---
+This architecture highlights both the advanced AI components (CV, NLP, LLM) and the user-centric features (Multilingual, Empathy, Validation) that define Fillora.in.
+
+Would you like to focus on the content for one of the specific PPT slides next, such as the **Key Features & Impact**?
